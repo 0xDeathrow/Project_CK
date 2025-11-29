@@ -65,12 +65,6 @@ export const HomePage: React.FC = () => {
             </StaggerItem>
             <StaggerItem>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-                <Link href="/app">
-                  <Button size="lg" className="h-14 px-8 text-lg bg-primary text-primary-foreground hover:bg-white transition-all duration-300 rounded-full group">
-                    Launch App 
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
                 <Button variant="outline" size="lg" className="h-14 px-8 text-lg border-white/10 hover:bg-white/5 rounded-full backdrop-blur-sm">
                   Read Documentation
                 </Button>
@@ -312,11 +306,9 @@ export const HomePage: React.FC = () => {
             <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
               Join the thousands of users who have already secured their financial privacy.
             </p>
-            <Link href="/app">
-              <Button size="lg" className="h-16 px-12 text-xl rounded-full bg-foreground text-background hover:bg-white/90 transition-all hover:scale-105">
-                Start Staking Now
-              </Button>
-            </Link>
+            <Button size="lg" className="h-16 px-12 text-xl rounded-full bg-foreground text-background hover:bg-white/90 transition-all hover:scale-105">
+              Start Staking Now
+            </Button>
           </RevealOnScroll>
         </div>
 

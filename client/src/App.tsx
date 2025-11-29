@@ -8,7 +8,6 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { PrivacyLoader } from "@/components/ui/privacy-loader";
 import { HomePage } from "@/pages/home";
-import { AppPage } from "@/pages/app";
 import NotFound from "@/pages/not-found";
 import { useState } from "react";
 
@@ -16,7 +15,6 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={HomePage} />
-      <Route path="/app" component={AppPage} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -53,22 +53,20 @@ export const Header: React.FC = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-4">
-            <Link href="/app">
-              <div className="hidden md:block">
-                <WalletMultiButton 
-                  style={{
-                    backgroundColor: 'rgba(255,255,255,0.05)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    color: 'white',
-                    borderRadius: '9999px',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    padding: '10px 24px',
-                    transition: 'all 0.3s ease',
-                  }}
-                />
-              </div>
-            </Link>
+            <div className="hidden md:block">
+              <WalletMultiButton 
+                style={{
+                  backgroundColor: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  color: 'white',
+                  borderRadius: '9999px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  padding: '10px 24px',
+                  transition: 'all 0.3s ease',
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
