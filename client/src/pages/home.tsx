@@ -92,6 +92,95 @@ export const HomePage: React.FC = () => {
       </section>
 
 
+      {/* ---------------- PRIVACY GAP (COMPARISON) ---------------- */}
+      <section className="relative py-32 px-6 z-10">
+        <div className="max-w-7xl mx-auto">
+          <RevealOnScroll className="mb-16 text-center">
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
+              The Privacy Gap
+            </h2>
+            <p className="text-muted-foreground text-xl max-w-2xl mx-auto">
+              Why migrating to zero-knowledge infrastructure is no longer optional.
+            </p>
+          </RevealOnScroll>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Traditional (The Problem) */}
+            <RevealOnScroll delay={0.1}>
+              <div className="h-full rounded-xl bg-destructive/5 border border-destructive/20 p-1 overflow-hidden group relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-destructive/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative h-full bg-card/50 backdrop-blur-sm rounded-lg p-8 md:p-12 border border-white/5 transition-colors duration-300 flex flex-col">
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="p-3 rounded-lg bg-destructive/10 text-destructive">
+                      <Globe className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-destructive">Traditional Staking</h3>
+                  </div>
+                  
+                  <div className="space-y-6 flex-grow">
+                    <div className="p-4 rounded bg-destructive/10 border border-destructive/20">
+                      <p className="font-medium text-destructive-foreground">
+                        Your wallet. Your balance. Your staking choices. <br/>
+                        <span className="font-bold">All exposed.</span>
+                      </p>
+                    </div>
+                    
+                    <ul className="space-y-4">
+                      {[
+                        "Every delegation publicly links your wallet to a validator.",
+                        "Anyone can see how much SOL you stake and when you move it.",
+                        "Validators can identify your wallet and track your on-chain patterns.",
+                        "Your economic identity becomes visible to analytics firms, bots, and attackers."
+                      ].map((item, i) => (
+                        <li key={i} className="flex gap-3 text-muted-foreground">
+                          <div className="w-1.5 h-1.5 rounded-full bg-destructive/50 mt-2.5 flex-shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </RevealOnScroll>
+
+            {/* ZK Staking (The Solution) */}
+            <RevealOnScroll delay={0.3}>
+              <TechGlowCard className="h-full p-8 md:p-12 flex flex-col bg-primary/5 border-primary/20">
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="p-3 rounded-lg bg-primary/10 text-primary">
+                    <Shield className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-primary">ZK Staking</h3>
+                </div>
+
+                <div className="space-y-6 flex-grow">
+                  <div className="p-4 rounded bg-primary/10 border border-primary/20">
+                    <p className="font-medium text-primary-foreground">
+                      Privacy by Design. <br/>
+                      <span className="font-bold">Stake Solana without revealing your identity.</span>
+                    </p>
+                  </div>
+
+                  <ul className="space-y-4">
+                    {[
+                      "Zero-knowledge proofs verify your stake without exposing your wallet.",
+                      "Breaks all links between you, your validator, and your staking amount.",
+                      "Validators see a proof, not your balance or activity.",
+                      "Earn native SOL rewards with complete privacy and no traceable footprint."
+                    ].map((item, i) => (
+                      <li key={i} className="flex gap-3 text-muted-foreground">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0 shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
+                        <span className="text-foreground/90">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </TechGlowCard>
+            </RevealOnScroll>
+          </div>
+        </div>
+      </section>
+
       {/* ---------------- FEATURES GRID (Arcium Style) ---------------- */}
       <section className="relative py-32 px-6 z-10">
         <div className="max-w-7xl mx-auto">
