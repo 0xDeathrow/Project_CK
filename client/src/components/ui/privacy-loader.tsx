@@ -211,14 +211,18 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
         {/* Loading Bar */}
         <div className="w-64 h-1 bg-secondary/30 rounded-full overflow-hidden mt-8">
            <motion.div 
-             className="h-full bg-white shadow-[0_0_10px_white]"
+             className="h-full shadow-[0_0_10px_currentColor]"
              initial={{ width: "0%" }}
              animate={{ 
                width: phase === 'exposed' ? "30%" : phase === 'cloaking' ? "80%" : "100%",
-               backgroundColor: phase === 'exposed' ? "var(--destructive)" : "white",
+               color: phase === 'exposed' ? "#ef4444" : "#ffffff", // Explicit red to white transition
+               backgroundColor: "currentColor",
                opacity: phase === 'expanding' ? 0 : 1
              }}
-             transition={{ duration: 1 }}
+             transition={{ 
+               width: { duration: 1, ease: "easeInOut" },
+               color: { duration: 0.5 } // Smooth color transition
+             }}
            />
         </div>
 
