@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CloakLogo } from '@/components/ui/logo';
-import { Lock, Shield, AlertTriangle } from 'lucide-react';
+import { Lock, AlertTriangle } from 'lucide-react';
 
 interface PrivacyLoaderProps {
   onComplete: () => void;
 }
 
 export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
-  const [phase, setPhase] = useState<'exposed' | 'cloaking' | 'secured'>('exposed');
+  const [phase, setPhase] = useState<'exposed' | 'cloaking' | 'secured' | 'padlock' | 'zoom'>('exposed');
 
   useEffect(() => {
     // Timeline
     const timer1 = setTimeout(() => setPhase('cloaking'), 1500);
     const timer2 = setTimeout(() => setPhase('secured'), 3000);
-    const timer3 = setTimeout(() => onComplete(), 4000);
+    const timer3 = setTimeout(() => setPhase('padlock'), 4500);
+    const timer4 = setTimeout(() => setPhase('zoom'), 5500);
+    const timer5 = setTimeout(() => onComplete(), 6200);
 
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
       clearTimeout(timer3);
+      clearTimeout(timer4);
+      clearTimeout(timer5);
     };
   }, [onComplete]);
 
@@ -73,6 +77,7 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
                   y: 0,
                   filter: phase === 'secured' ? 'drop-shadow(0 0 20px rgba(255,255,255,0.5))' : 'none'
                 }}
+                exit={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
                 transition={{ duration: 0.8, ease: "backOut" }}
                 className="absolute inset-0 flex items-center justify-center"
               >
@@ -90,6 +95,49 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
                         transition={{ duration: 1.5, ease: "easeInOut" }}
                      />
                    </svg>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* PHASE 4 & 5: PADLOCK & ZOOM (The Lock) */}
+          <AnimatePresence>
+            {(phase === 'padlock' || phase === 'zoom') && (
+              <motion.div
+                key="padlock"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={
+                  phase === 'zoom' 
+                  ? { scale: 50, opacity: 0 } 
+                  : { opacity: 1, scale: 1 }
+                }
+                transition={
+                  phase === 'zoom'
+                  ? { duration: 0.8, ease: [0.7, 0, 0.84, 0] } // Aggressive easing for zoom
+                  : { duration: 0.5, ease: "backOut" }
+                }
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <div className={`relative ${phase === 'zoom' ? 'text-foreground' : 'text-primary'}`}>
+                  {/* The Glowing Padlock */}
+                  <Lock className="w-24 h-24 fill-current" strokeWidth={0} />
+                  
+                  {/* Glow Effect */}
+                  {phase === 'padlock' && (
+                    <>
+                      <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="absolute inset-0 blur-xl bg-primary/50 rounded-full" 
+                      />
+                      <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        className="absolute inset-0 blur-md bg-white/30 rounded-full" 
+                      />
+                    </>
+                  )}
                 </div>
               </motion.div>
             )}
@@ -131,6 +179,7 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
                 key="text-secured"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
                 className="text-primary font-mono tracking-widest"
               >
                 <span className="block text-sm mb-1 opacity-70">STATUS</span>
@@ -138,21 +187,26 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
               </motion.div>
             )}
 
+             {/* Padlock phase doesn't need text, focus on the lock */}
+
           </AnimatePresence>
         </div>
         
         {/* Loading Bar */}
-        <div className="w-64 h-1 bg-secondary/30 rounded-full overflow-hidden mt-8">
+        <motion.div 
+           className="w-64 h-1 bg-secondary/30 rounded-full overflow-hidden mt-8"
+           animate={{ opacity: phase === 'zoom' ? 0 : 1 }}
+        >
            <motion.div 
              className="h-full bg-white shadow-[0_0_10px_white]"
              initial={{ width: "0%" }}
              animate={{ 
-               width: phase === 'exposed' ? "30%" : phase === 'cloaking' ? "80%" : "100%",
+               width: phase === 'exposed' ? "30%" : phase === 'cloaking' ? "60%" : phase === 'secured' ? "90%" : "100%",
                backgroundColor: phase === 'exposed' ? "var(--destructive)" : "white"
              }}
              transition={{ duration: 1 }}
            />
-        </div>
+        </motion.div>
 
       </div>
     </div>
