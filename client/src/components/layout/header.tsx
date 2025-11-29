@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { WalletMultiButton } from '@/lib/solana-mock';
 
+import { CloakLogo } from '@/components/ui/logo';
+
 export const Header: React.FC = () => {
   const [location] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,11 +29,7 @@ export const Header: React.FC = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group cursor-pointer">
             <div className="relative w-8 h-8 overflow-hidden">
-               <img 
-                src="/attached_assets/Cloak_1764430359470.png" 
-                alt="Cloak Logo" 
-                className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110" 
-              />
+              <CloakLogo className="w-full h-full text-foreground transition-transform duration-500 group-hover:scale-110" />
             </div>
             <span className="text-xl font-bold tracking-wide font-display text-foreground">
               CLOAK

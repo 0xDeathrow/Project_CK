@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Shield, Lock, Zap, Network, Cpu, Globe } from 'lucide-react';
 import { RevealOnScroll, ParallaxElement, StaggerContainer, StaggerItem, TechGlowCard } from '@/components/ui/motion-system';
 
+import { CloakLogo } from '@/components/ui/logo';
+
 export const HomePage: React.FC = () => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll();
@@ -43,11 +45,9 @@ export const HomePage: React.FC = () => {
             className="mb-12 relative inline-block"
           >
             <div className="absolute inset-0 bg-primary/20 blur-3xl opacity-20 rounded-full" />
-            <img 
-              src="/attached_assets/Cloak_1764430359470.png" 
-              alt="Cloak" 
-              className="w-32 h-32 md:w-48 md:h-48 object-contain relative z-10 drop-shadow-2xl"
-            />
+            <div className="w-32 h-32 md:w-48 md:h-48 relative z-10 drop-shadow-2xl mx-auto">
+              <CloakLogo className="w-full h-full text-foreground" />
+            </div>
           </motion.div>
 
           {/* Headline */}
