@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CloakLogo } from '@/components/ui/logo';
+import { Lock, Shield, AlertTriangle } from 'lucide-react';
 
 interface PrivacyLoaderProps {
   onComplete: () => void;
 }
 
 export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
-  const [phase, setPhase] = useState<'eye' | 'strike' | 'complete'>('eye');
+  const [phase, setPhase] = useState<'exposed' | 'cloaking' | 'secured'>('exposed');
 
   useEffect(() => {
-    const timer1 = setTimeout(() => setPhase('strike'), 1800);
-    const timer2 = setTimeout(() => setPhase('complete'), 3600);
-    const timer3 = setTimeout(() => onComplete(), 4500);
+    // Timeline
+    const timer1 = setTimeout(() => setPhase('cloaking'), 1500);
+    const timer2 = setTimeout(() => setPhase('secured'), 3000);
+    const timer3 = setTimeout(() => onComplete(), 4000);
 
     return () => {
       clearTimeout(timer1);
@@ -20,112 +24,137 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-gradient-to-br from-background to-background/95 flex items-center justify-center backdrop-blur-sm">
-      {/* Subtle background grid */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,hsl(var(--border))_1px,transparent_0)] bg-[length:32px_32px]" />
-      </div>
-
-      {/* Main animation container */}
-      <div className="relative flex flex-col items-center space-y-8">
-        {/* Eye animation */}
-        <div className="relative w-32 h-32 flex items-center justify-center">
-          {/* Eye container */}
-          <div className={`relative transition-all duration-1000 ${
-            phase === 'eye' ? 'scale-100 opacity-100' : 'scale-95 opacity-40'
-          }`}>
-            {/* Eye outline */}
-            <div className="w-24 h-12 border-2 border-primary/60 rounded-full relative overflow-hidden bg-background/20 backdrop-blur-sm">
-              {/* Iris */}
-              <div className={`absolute top-1/2 left-1/2 w-8 h-8 bg-gradient-to-br from-primary/80 to-primary/40 rounded-full transform -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ${
-                phase === 'eye' ? 'animate-subtle-glow scale-100' : 'scale-75 opacity-60'
-              }`}>
-                {/* Pupil */}
-                <div className="absolute top-1/2 left-1/2 w-3 h-3 bg-background rounded-full transform -translate-x-1/2 -translate-y-1/2" />
-                
-                {/* Iris reflection */}
-                <div className="absolute top-2 right-2 w-1 h-1 bg-primary/30 rounded-full" />
-              </div>
-              
-              {/* Eyelid animation for blinking */}
-              <div className={`absolute inset-0 bg-background transition-all duration-300 ${
-                phase === 'eye' ? 'animate-subtle-blink' : ''
-              }`} style={{
-                clipPath: phase === 'eye' ? 'inset(0 0 85% 0)' : 'inset(0 0 100% 0)'
-              }} />
-            </div>
-            
-            {/* Scanning lines effect */}
-            <div className={`absolute inset-0 pointer-events-none ${
-              phase === 'eye' ? 'opacity-100' : 'opacity-0'
-            }`}>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent animate-scan-line" />
-            </div>
-          </div>
-
-          {/* Strike through animation */}
-          <div className={`absolute inset-0 flex items-center justify-center transition-all duration-800 ${
-            phase === 'strike' || phase === 'complete' ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
-          }`}>
-            {/* Strike line */}
-            <div className={`w-0 h-0.5 bg-gradient-to-r from-destructive/80 via-destructive to-destructive/80 shadow-glow transition-all duration-1000 ${
-              phase === 'strike' || phase === 'complete' ? 'w-40' : 'w-0'
-            }`} />
-            
-            {/* Impact effect */}
-            <div className={`absolute w-2 h-2 bg-destructive rounded-full transition-all duration-500 ${
-              phase === 'strike' || phase === 'complete' ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
-            }`}>
-              <div className="absolute inset-0 bg-destructive rounded-full animate-ping opacity-30" />
-            </div>
-          </div>
-
-          {/* Shield overlay */}
-          <div className={`absolute inset-0 flex items-center justify-center transition-all duration-700 delay-300 ${
-            phase === 'complete' ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
-          }`}>
-            <div className="w-16 h-16 rounded-xl bg-primary/20 flex items-center justify-center backdrop-blur-sm border border-primary/30">
-              <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        {/* Text animation */}
-        <div className="text-center space-y-4">
-          <div className={`transition-all duration-700 ${
-            phase === 'eye' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
-            <h1 className="text-4xl font-bold tracking-tight mb-2">CLOAK</h1>
-            <p className="text-muted-foreground">Initializing privacy layer...</p>
-          </div>
-
-          <div className={`transition-all duration-700 delay-200 ${
-            phase === 'strike' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
-            <p className="text-primary font-medium">Blocking surveillance...</p>
-          </div>
-
-          <div className={`transition-all duration-700 delay-400 ${
-            phase === 'complete' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
-            <p className="text-primary font-medium">Privacy secured ✓</p>
-          </div>
-        </div>
-
-        {/* Loading progress indicator */}
-        <div className="w-48 h-0.5 bg-muted rounded-full overflow-hidden">
-          <div className={`h-full bg-gradient-to-r from-primary/50 via-primary to-primary/50 rounded-full transition-all duration-2500 ease-out ${
-            phase === 'complete' ? 'w-full' : phase === 'strike' ? 'w-2/3' : 'w-1/3'
-          }`} />
-        </div>
-      </div>
-
-      {/* Fade out overlay */}
-      <div className={`absolute inset-0 bg-background transition-all duration-700 ${
-        phase === 'complete' ? 'opacity-100' : 'opacity-0 pointer-events-none'
+    <div className="fixed inset-0 z-[9999] bg-background flex items-center justify-center overflow-hidden">
+      
+      {/* Background Ambience - Changes with phase */}
+      <div className={`absolute inset-0 transition-colors duration-1000 ${
+        phase === 'exposed' ? 'bg-destructive/5' : 'bg-background'
       }`} />
+
+      {/* Grid Pattern */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+      </div>
+
+      <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-md p-8">
+        
+        {/* Central Animation Container */}
+        <div className="relative w-48 h-48 mb-12 flex items-center justify-center">
+          
+          {/* PHASE 1: EXPOSED (Red Glitch) */}
+          <AnimatePresence mode="wait">
+            {phase === 'exposed' && (
+              <motion.div
+                key="exposed"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.5, filter: "blur(10px)" }}
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <div className="relative">
+                  <AlertTriangle className="w-24 h-24 text-destructive animate-pulse" />
+                  {/* Glitch Effect Circles */}
+                  <div className="absolute inset-0 border border-destructive/50 rounded-full animate-[ping_1s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                  <div className="absolute inset-0 border border-destructive/30 rounded-full animate-[ping_1.5s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* PHASE 2 & 3: CLOAK LOGO (The Savior) */}
+          <AnimatePresence>
+            {(phase === 'cloaking' || phase === 'secured') && (
+              <motion.div
+                key="cloak"
+                initial={{ opacity: 0, scale: 1.5, y: 20 }}
+                animate={{ 
+                  opacity: 1, 
+                  scale: phase === 'secured' ? 1.2 : 1, 
+                  y: 0,
+                  filter: phase === 'secured' ? 'drop-shadow(0 0 20px rgba(255,255,255,0.5))' : 'none'
+                }}
+                transition={{ duration: 0.8, ease: "backOut" }}
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <div className="w-32 h-32 text-foreground relative">
+                   <CloakLogo />
+                   {/* Shield Forming Animation */}
+                   <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
+                     <motion.circle 
+                        cx="50" cy="50" r="48" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="1"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={{ pathLength: 1, opacity: 0.5 }}
+                        transition={{ duration: 1.5, ease: "easeInOut" }}
+                     />
+                   </svg>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Text Status Updates */}
+        <div className="h-20 flex flex-col items-center justify-start text-center space-y-2">
+          <AnimatePresence mode="wait">
+            
+            {phase === 'exposed' && (
+              <motion.div
+                key="text-exposed"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="text-destructive font-mono tracking-widest"
+              >
+                <span className="block text-sm mb-1 opacity-70">SYSTEM ALERT</span>
+                <span className="text-xl font-bold">PUBLIC LEDGER DETECTED</span>
+              </motion.div>
+            )}
+
+            {phase === 'cloaking' && (
+              <motion.div
+                key="text-cloaking"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="text-foreground font-mono tracking-widest"
+              >
+                <span className="block text-sm mb-1 opacity-70">INITIALIZING ZK-PROOFS</span>
+                <span className="text-xl font-bold">ENCRYPTING ASSETS...</span>
+              </motion.div>
+            )}
+
+            {phase === 'secured' && (
+              <motion.div
+                key="text-secured"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-primary font-mono tracking-widest"
+              >
+                <span className="block text-sm mb-1 opacity-70">STATUS</span>
+                <span className="text-xl font-bold text-white drop-shadow-glow">CONNECTION SECURED</span>
+              </motion.div>
+            )}
+
+          </AnimatePresence>
+        </div>
+        
+        {/* Loading Bar */}
+        <div className="w-64 h-1 bg-secondary/30 rounded-full overflow-hidden mt-8">
+           <motion.div 
+             className="h-full bg-white shadow-[0_0_10px_white]"
+             initial={{ width: "0%" }}
+             animate={{ 
+               width: phase === 'exposed' ? "30%" : phase === 'cloaking' ? "80%" : "100%",
+               backgroundColor: phase === 'exposed' ? "var(--destructive)" : "white"
+             }}
+             transition={{ duration: 1 }}
+           />
+        </div>
+
+      </div>
     </div>
   );
 };
