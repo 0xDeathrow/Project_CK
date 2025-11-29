@@ -14,11 +14,11 @@ export const CloakLogo: React.FC<LogoProps> = ({ className, color = "currentColo
       xmlns="http://www.w3.org/2000/svg" 
       className={cn("w-full h-full", className)}
     >
-      {/* Professional Tech/Privacy Logo */}
+      {/* Tech Hooded Figure */}
       
-      {/* Outer Shield/Hood Hexagon Container */}
+      {/* Hood Outline - Geometric/Tech style */}
       <path 
-        d="M50 5L85 25V65L50 95L15 65V25L50 5Z" 
+        d="M50 5L20 35V85L50 95L80 85V35L50 5Z" 
         stroke={color} 
         strokeWidth="4" 
         strokeLinecap="square" 
@@ -26,46 +26,58 @@ export const CloakLogo: React.FC<LogoProps> = ({ className, color = "currentColo
         className="opacity-100"
       />
 
-      {/* Inner Hood Contour - Abstracting the figure */}
+      {/* Inner Cowl/Visor Opening */}
       <path 
-        d="M50 20L70 35V60L50 75L30 60V35L50 20Z" 
+        d="M50 20L70 40V70L50 80L30 70V40L50 20Z" 
         fill="none"
         stroke={color}
-        strokeWidth="3"
-        strokeLinecap="square"
+        strokeWidth="2"
+        strokeLinecap="square" 
         strokeLinejoin="miter"
         className="opacity-60"
       />
 
-      {/* The "Core" / Eye / Node - The ZK Proof */}
-      <rect 
-        x="46" 
-        y="44" 
-        width="8" 
-        height="8" 
-        transform="rotate(45 50 48)"
+      {/* Shoulders / Robe detail */}
+      <path 
+        d="M20 85L10 95" 
+        stroke={color} 
+        strokeWidth="3" 
+        strokeLinecap="square"
+      />
+      <path 
+        d="M80 85L90 95" 
+        stroke={color} 
+        strokeWidth="3" 
+        strokeLinecap="square"
+      />
+
+      {/* The "Eye" / Tech Core - Hidden inside */}
+      <circle 
+        cx="50" 
+        cy="50" 
+        r="4" 
         fill={color} 
         className="animate-pulse"
       />
       
-      {/* Data Lines connecting to core */}
+      {/* Circuit lines connecting to the eye */}
       <path 
-        d="M50 75V85" 
+        d="M50 50L50 65" 
         stroke={color} 
-        strokeWidth="2" 
-        className="opacity-40"
+        strokeWidth="1.5" 
+        className="opacity-50"
       />
-       <path 
-        d="M30 60L22 65" 
+      <path 
+        d="M50 65L35 75" 
         stroke={color} 
-        strokeWidth="2" 
-        className="opacity-40"
+        strokeWidth="1.5" 
+        className="opacity-50"
       />
-       <path 
-        d="M70 60L78 65" 
+      <path 
+        d="M50 65L65 75" 
         stroke={color} 
-        strokeWidth="2" 
-        className="opacity-40"
+        strokeWidth="1.5" 
+        className="opacity-50"
       />
     </svg>
   );
