@@ -105,34 +105,54 @@ export const HomePage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Traditional (The Problem) */}
             <RevealOnScroll delay={0.1}>
-              <div className="h-full rounded-xl bg-destructive/5 border border-destructive/20 p-1 overflow-hidden group relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-destructive/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative h-full bg-card/50 backdrop-blur-sm rounded-lg p-8 md:p-12 border border-white/5 transition-colors duration-300 flex flex-col">
+              <div className="h-full rounded-xl bg-black border border-destructive/20 p-1 overflow-hidden group relative">
+                {/* Animated Data Rain Background */}
+                <div className="absolute inset-0 opacity-20 overflow-hidden font-mono text-xs text-destructive leading-none pointer-events-none">
+                   <div className="animate-[slide-down_10s_linear_infinite] whitespace-pre-wrap">
+                    {Array.from({ length: 20 }).map((_, i) => (
+                      <div key={i} className="flex justify-between px-4">
+                         <span>0x{Math.random().toString(16).slice(2, 10)}...</span>
+                         <span>{Math.floor(Math.random() * 1000)} SOL</span>
+                      </div>
+                    ))}
+                   </div>
+                </div>
+                
+                <div className="absolute inset-0 bg-gradient-to-br from-destructive/5 via-transparent to-transparent" />
+                
+                <div className="relative h-full bg-card/80 backdrop-blur-sm rounded-lg p-8 md:p-12 border border-white/5 transition-colors duration-300 flex flex-col">
                   <div className="flex items-center gap-4 mb-8">
-                    <div className="p-3 rounded-lg bg-destructive/10 text-destructive">
-                      <Globe className="w-8 h-8" />
+                    <div className="relative p-3 rounded-lg bg-destructive/10 text-destructive overflow-hidden">
+                      <div className="absolute inset-0 bg-destructive/20 animate-ping opacity-50" />
+                      <Globe className="w-8 h-8 relative z-10" />
                     </div>
-                    <h3 className="text-2xl font-bold text-destructive">Traditional Staking</h3>
+                    <h3 className="text-2xl font-bold text-destructive tracking-tight">
+                      PUBLIC LEDGER
+                      <span className="ml-3 text-xs font-mono bg-destructive/20 px-2 py-1 rounded text-destructive uppercase animate-pulse">Exposed</span>
+                    </h3>
                   </div>
                   
-                  <div className="space-y-6 flex-grow">
-                    <div className="p-4 rounded bg-destructive/10 border border-destructive/20">
-                      <p className="font-medium text-destructive-foreground">
-                        Your wallet. Your balance. Your staking choices. <br/>
-                        <span className="font-bold">All exposed.</span>
+                  <div className="space-y-6 flex-grow relative z-10">
+                    <div className="p-4 rounded bg-destructive/10 border border-destructive/20 relative overflow-hidden">
+                      {/* Glitch scanning line */}
+                      <div className="absolute top-0 left-0 w-full h-[2px] bg-destructive/50 shadow-[0_0_10px_red] animate-[scan-down_3s_linear_infinite]" />
+                      
+                      <p className="font-medium text-destructive-foreground font-mono">
+                        Warning: Wallet activity detected. <br/>
+                        <span className="font-bold">Identity Correlation: 98% Match</span>
                       </p>
                     </div>
                     
                     <ul className="space-y-4">
                       {[
-                        "Every delegation publicly links your wallet to a validator.",
-                        "Anyone can see how much SOL you stake and when you move it.",
-                        "Validators can identify your wallet and track your on-chain patterns.",
-                        "Your economic identity becomes visible to analytics firms, bots, and attackers."
+                        "Delegation link: VISIBLE",
+                        "Staking amount: PUBLIC",
+                        "Transaction history: TRACEABLE",
+                        "Economic profile: COMPROMISED"
                       ].map((item, i) => (
-                        <li key={i} className="flex gap-3 text-muted-foreground">
-                          <div className="w-1.5 h-1.5 rounded-full bg-destructive/50 mt-2.5 flex-shrink-0" />
-                          <span>{item}</span>
+                        <li key={i} className="flex gap-3 text-muted-foreground items-center group/item">
+                          <div className="w-1.5 h-1.5 rounded-full bg-destructive/50 group-hover/item:bg-destructive group-hover/item:scale-150 transition-all duration-300" />
+                          <span className="font-mono text-sm tracking-wide group-hover/item:text-destructive transition-colors">{item}</span>
                         </li>
                       ))}
                     </ul>
@@ -143,37 +163,51 @@ export const HomePage: React.FC = () => {
 
             {/* ZK Staking (The Solution) */}
             <RevealOnScroll delay={0.3}>
-              <TechGlowCard className="h-full p-8 md:p-12 flex flex-col bg-primary/5 border-primary/20">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="p-3 rounded-lg bg-primary/10 text-primary">
-                    <Shield className="w-8 h-8" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-primary">ZK Staking</h3>
+              <div className="h-full rounded-xl bg-black border border-primary/20 p-1 overflow-hidden group relative shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:shadow-[0_0_50px_rgba(255,255,255,0.1)] transition-shadow duration-500">
+                {/* Void Animation Background */}
+                <div className="absolute inset-0 opacity-30">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/20 rounded-full blur-[80px] animate-pulse" />
                 </div>
 
-                <div className="space-y-6 flex-grow">
-                  <div className="p-4 rounded bg-primary/10 border border-primary/20">
-                    <p className="font-medium text-primary-foreground">
-                      Privacy by Design. <br/>
-                      <span className="font-bold">Stake Solana without revealing your identity.</span>
-                    </p>
+                <div className="relative h-full bg-card/80 backdrop-blur-sm rounded-lg p-8 md:p-12 border border-white/5 flex flex-col">
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="p-3 rounded-lg bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                      <Shield className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-primary tracking-tight">
+                      ZERO KNOWLEDGE
+                      <span className="ml-3 text-xs font-mono bg-primary/20 px-2 py-1 rounded text-primary uppercase">Secure</span>
+                    </h3>
                   </div>
 
-                  <ul className="space-y-4">
-                    {[
-                      "Zero-knowledge proofs verify your stake without exposing your wallet.",
-                      "Breaks all links between you, your validator, and your staking amount.",
-                      "Validators see a proof, not your balance or activity.",
-                      "Earn native SOL rewards with complete privacy and no traceable footprint."
-                    ].map((item, i) => (
-                      <li key={i} className="flex gap-3 text-muted-foreground">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0 shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
-                        <span className="text-foreground/90">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="space-y-6 flex-grow">
+                    <div className="p-4 rounded bg-primary/5 border border-primary/10 relative overflow-hidden group-hover:bg-primary/10 transition-colors duration-500">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite]" />
+                      <p className="font-medium text-primary-foreground font-mono">
+                        Status: Encrypted <br/>
+                        <span className="font-bold">Proof Generated. Data Hidden.</span>
+                      </p>
+                    </div>
+
+                    <ul className="space-y-4">
+                      {[
+                        "Wallet Link: SEVERED",
+                        "Staking Amount: PRIVATE",
+                        "Validator View: PROOF ONLY",
+                        "Footprint: ZERO"
+                      ].map((item, i) => (
+                        <li key={i} className="flex gap-3 text-muted-foreground items-center group/item">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary mt-0.5 shadow-[0_0_8px_rgba(255,255,255,0.8)] group-hover/item:scale-150 transition-all duration-300" />
+                          <span className="font-mono text-sm tracking-wide text-foreground/80 group-hover/item:text-white transition-colors">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  {/* Scanning line effect at bottom */}
+                  <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
                 </div>
-              </TechGlowCard>
+              </div>
             </RevealOnScroll>
           </div>
         </div>
