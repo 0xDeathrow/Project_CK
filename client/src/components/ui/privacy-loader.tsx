@@ -20,8 +20,8 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
 
   useEffect(() => {
     // Timeline
-    const timer1 = setTimeout(() => setPhase('cloaking'), 1500);
-    const timer2 = setTimeout(() => setPhase('secured'), 3000);
+    const timer1 = setTimeout(() => setPhase('cloaking'), 2000);
+    const timer2 = setTimeout(() => setPhase('secured'), 4000);
     
     // Start expansion after secured phase build-up
     const timer3 = setTimeout(() => {
@@ -32,7 +32,7 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
         ease: [0.645, 0.045, 0.355, 1.000], // cubic-bezier for smooth "portal" feel
         onComplete: () => onComplete()
       });
-    }, 4500);
+    }, 6000);
 
     return () => {
       clearTimeout(timer1);
@@ -116,8 +116,8 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
                 <div className="w-32 h-32 text-foreground relative">
                    <CloakLogo />
                    
-                   {/* Shield Forming Animation */}
-                   {phase === 'cloaking' && (
+                   {/* Shield Forming Animation - Visible in cloaking AND secured phases */}
+                   {(phase === 'cloaking' || phase === 'secured' || phase === 'expanding') && (
                      <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
                        <motion.circle 
                           cx="50" cy="50" r="48" 
