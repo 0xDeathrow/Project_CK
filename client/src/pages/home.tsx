@@ -271,7 +271,7 @@ export const HomePage: React.FC = () => {
               <h2 className="text-4xl md:text-7xl font-bold tracking-tighter leading-[0.9]">
                 PROTECT <br />
                 YOUR <br />
-                ALPHA
+                FUNDS
               </h2>
               <p className="text-xl md:text-2xl max-w-md font-medium opacity-80">
                 In a transparent world, privacy is the ultimate competitive advantage. Cloak gives you the power to disappear.
