@@ -14,36 +14,59 @@ export const CloakLogo: React.FC<LogoProps> = ({ className, color = "currentColo
       xmlns="http://www.w3.org/2000/svg" 
       className={cn("w-full h-full", className)}
     >
-      {/* Minimalist Hood Silhouette */}
-      {/* Left side of hood */}
-      <path 
-        d="M50 10C30 10 15 30 15 55V90H40L50 80" 
-        stroke={color} 
-        strokeWidth="6" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
-      />
+      {/* Professional Tech/Privacy Logo */}
       
-      {/* Right side of hood - slightly offset/disconnected for style */}
+      {/* Outer Shield/Hood Hexagon Container */}
       <path 
-        d="M50 10C70 10 85 30 85 55V90H60L50 80" 
+        d="M50 5L85 25V65L50 95L15 65V25L50 5Z" 
         stroke={color} 
-        strokeWidth="6" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
+        strokeWidth="4" 
+        strokeLinecap="square" 
+        strokeLinejoin="miter"
+        className="opacity-100"
       />
 
-      {/* Inner "Void" - Minimal Visor Line */}
+      {/* Inner Hood Contour - Abstracting the figure */}
       <path 
-        d="M35 50H65" 
-        stroke={color} 
-        strokeWidth="6" 
-        strokeLinecap="round"
-        className="opacity-80"
+        d="M50 20L70 35V60L50 75L30 60V35L50 20Z" 
+        fill="none"
+        stroke={color}
+        strokeWidth="3"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
+        className="opacity-60"
+      />
+
+      {/* The "Core" / Eye / Node - The ZK Proof */}
+      <rect 
+        x="46" 
+        y="44" 
+        width="8" 
+        height="8" 
+        transform="rotate(45 50 48)"
+        fill={color} 
+        className="animate-pulse"
       />
       
-      {/* Tech accent dot */}
-      <circle cx="50" cy="65" r="4" fill={color} className="opacity-60" />
+      {/* Data Lines connecting to core */}
+      <path 
+        d="M50 75V85" 
+        stroke={color} 
+        strokeWidth="2" 
+        className="opacity-40"
+      />
+       <path 
+        d="M30 60L22 65" 
+        stroke={color} 
+        strokeWidth="2" 
+        className="opacity-40"
+      />
+       <path 
+        d="M70 60L78 65" 
+        stroke={color} 
+        strokeWidth="2" 
+        className="opacity-40"
+      />
     </svg>
   );
 };
