@@ -14,33 +14,50 @@ export const CloakLogo: React.FC<LogoProps> = ({ className, color = "currentColo
       xmlns="http://www.w3.org/2000/svg" 
       className={cn("w-full h-full", className)}
     >
-      {/* SLEEK TECHNICAL MINIMALIST LOGO */}
+      {/* "Stealth Vector" Logo */}
+      {/* Concept: An abstract 'A' shape (for Alpha/Anon) that forms a sleek, sharp hood. */}
+      {/* Resembles a stealth bomber or cursor, emphasizing speed and tech. */}
+
+      <defs>
+        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+      </defs>
       
-      {/* The "Shroud" - Sharp, geometric, angular container */}
-      {/* Left Shard */}
+      {/* Main Hood Silhouette - Sharp, aggressive angles */}
       <path 
-        d="M50 10 L20 85 L50 75 Z" 
-        fill={color} 
-        className="opacity-90"
-      />
-      
-      {/* Right Shard - Slightly separated for 'tech' feel */}
-      <path 
-        d="M50 10 L80 85 L50 75 Z" 
-        fill={color} 
-        className="opacity-90"
+        d="M50 5 L 90 90 L 50 75 L 10 90 L 50 5 Z" 
+        stroke={color} 
+        strokeWidth="5" 
+        strokeLinejoin="round" 
+        strokeLinecap="round"
+        fill="none"
+        className="drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"
       />
 
-      {/* The "Hidden Core" - A distinct tech element floating in the negative space below */}
-      {/* This represents the 'Alpha' or 'Funds' being protected inside/under the cloak */}
-      <circle cx="50" cy="60" r="5" fill="white" stroke={color} strokeWidth="2" />
-
-      {/* Tech Accent Lines - Subtle details to reinforce 'Technical' aspect */}
+      {/* Inner "Visor" / Core Logic - The hidden element */}
       <path 
-        d="M50 10 V25" 
-        stroke="white" 
-        strokeWidth="1" 
-        className="opacity-50"
+        d="M50 25 L 70 75 L 50 65 L 30 75 L 50 25 Z" 
+        fill={color}
+        className="opacity-20"
+      />
+
+      {/* The "Singularity" Dot - High contrast focus point */}
+      <circle 
+        cx="50" 
+        cy="50" 
+        r="5" 
+        fill={color} 
+        className="animate-pulse"
+      />
+      
+      {/* Tech Accent: Data Line descending */}
+      <path 
+        d="M50 50 V 75" 
+        stroke={color} 
+        strokeWidth="2" 
+        className="opacity-60"
       />
     </svg>
   );
