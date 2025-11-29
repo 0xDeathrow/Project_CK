@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence, useMotionTemplate, useMotionValue, animate } from 'framer-motion';
+import { motion, AnimatePresence, useMotionTemplate, useMotionValue, animate, useTransform } from 'framer-motion';
 import { CloakLogo } from '@/components/ui/logo';
 import { AlertTriangle } from 'lucide-react';
 
@@ -10,10 +10,13 @@ interface PrivacyLoaderProps {
 export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
   const [phase, setPhase] = useState<'exposed' | 'cloaking' | 'secured' | 'expanding'>('exposed');
   
-  // Motion value for the portal mask radius (0% to 150%)
+  // Motion value for the portal mask radius (0 to 150 vmax)
   const maskRadius = useMotionValue(0);
   // Create the dynamic mask image string
-  const maskImage = useMotionTemplate`radial-gradient(circle at 50% 50%, transparent ${maskRadius}%, black ${maskRadius}%)`;
+  const maskImage = useMotionTemplate`radial-gradient(circle at 50% 50%, transparent ${maskRadius}vmax, black ${maskRadius}vmax)`;
+
+  // Transform maskRadius to size for the glowing ring
+  const ringSize = useTransform(maskRadius, r => `${r * 2}vmax`);
 
   useEffect(() => {
     // Timeline
@@ -58,6 +61,18 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
       </div>
 
+      {/* PORTAL GLOW RING - Visible during expansion */}
+      {phase === 'expanding' && (
+        <motion.div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none z-50"
+          style={{ 
+            width: ringSize, 
+            height: ringSize,
+            boxShadow: '0 0 50px 20px rgba(255, 255, 255, 0.8), inset 0 0 20px 10px rgba(255, 255, 255, 0.5)'
+          }}
+        />
+      )}
+
       <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-md p-8">
         
         {/* Central Animation Container */}
@@ -90,8 +105,8 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
                 key="cloak"
                 initial={{ opacity: 0, scale: 1.5, y: 20 }}
                 animate={{ 
-                  opacity: phase === 'expanding' ? 0 : 1, // Fade out logo as portal opens
-                  scale: phase === 'secured' ? 1.2 : phase === 'expanding' ? 3 : 1, // Scale up during expansion
+                  opacity: 1, // Keep logo visible even during expansion (it gets eaten by the portal)
+                  scale: phase === 'secured' ? 1.2 : phase === 'expanding' ? 1.5 : 1, 
                   y: 0,
                   filter: phase === 'secured' ? 'drop-shadow(0 0 20px rgba(255,255,255,0.5))' : 'none'
                 }}
@@ -123,12 +138,12 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
                         initial={{ width: 10, height: 10, opacity: 0 }}
                         animate={
                           phase === 'expanding' 
-                            ? { width: 2000, height: 2000, opacity: 0 } // Expand massively then vanish (mask takes over visual)
+                            ? { width: 0, height: 0, opacity: 0 } // Vanish as the portal mask takes over
                             : { width: 12, height: 12, opacity: 1 }
                         }
                         transition={
                           phase === 'expanding' 
-                            ? { duration: 1.5, ease: [0.645, 0.045, 0.355, 1.000] }
+                            ? { duration: 0.2 } // Quick vanish
                             : { duration: 0.2 }
                         }
                      >
@@ -139,11 +154,6 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
                             animate={{ scale: [1, 1.5, 1], opacity: [0.8, 0.2, 0.8] }}
                             transition={{ duration: 0.2, repeat: Infinity }} // Fast pulse
                           />
-                        )}
-                        
-                        {/* Glowing Ring during Expansion */}
-                        {phase === 'expanding' && (
-                          <div className="absolute inset-0 rounded-full border-[50px] border-white opacity-50 blur-xl" />
                         )}
                      </motion.div>
                    )}
