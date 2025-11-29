@@ -14,35 +14,33 @@ export const CloakLogo: React.FC<LogoProps> = ({ className, color = "currentColo
       xmlns="http://www.w3.org/2000/svg" 
       className={cn("w-full h-full", className)}
     >
-      {/* Graphical Hooded Figure - Less Technical, More Iconic */}
+      {/* SLEEK TECHNICAL MINIMALIST LOGO */}
       
-      {/* Outer Hood Shape - Smooth, graphical curve */}
+      {/* The "Shroud" - Sharp, geometric, angular container */}
+      {/* Left Shard */}
       <path 
-        d="M50 10C30 10 20 30 20 55C20 75 30 90 50 90C70 90 80 75 80 55C80 30 70 10 50 10Z" 
-        stroke={color} 
-        strokeWidth="6" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
-      />
-
-      {/* Inner Cowl/Visor - Creating the face void */}
-      <path 
-        d="M50 28C42 28 35 35 35 50C35 62 42 68 50 68C58 68 65 62 65 50C65 35 58 28 50 28Z" 
-        stroke={color} 
-        strokeWidth="4" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
+        d="M50 10 L20 85 L50 75 Z" 
+        fill={color} 
         className="opacity-90"
       />
       
-      {/* Central 'Eye' / Focus Point - Solid and clear */}
-      <circle cx="50" cy="48" r="5" fill={color} />
-      
-      {/* Subtle Shadow Fill for depth without lines */}
+      {/* Right Shard - Slightly separated for 'tech' feel */}
       <path 
-        d="M50 28C42 28 35 35 35 50C35 62 42 68 50 68C58 68 65 62 65 50C65 35 58 28 50 28Z" 
-        fill={color}
-        className="opacity-10"
+        d="M50 10 L80 85 L50 75 Z" 
+        fill={color} 
+        className="opacity-90"
+      />
+
+      {/* The "Hidden Core" - A distinct tech element floating in the negative space below */}
+      {/* This represents the 'Alpha' or 'Funds' being protected inside/under the cloak */}
+      <circle cx="50" cy="60" r="5" fill="white" stroke={color} strokeWidth="2" />
+
+      {/* Tech Accent Lines - Subtle details to reinforce 'Technical' aspect */}
+      <path 
+        d="M50 10 V25" 
+        stroke="white" 
+        strokeWidth="1" 
+        className="opacity-50"
       />
     </svg>
   );
