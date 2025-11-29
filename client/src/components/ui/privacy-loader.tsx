@@ -1,30 +1,52 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionTemplate, useMotionValue, animate } from 'framer-motion';
 import { CloakLogo } from '@/components/ui/logo';
-import { Lock, Shield, AlertTriangle } from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
 
 interface PrivacyLoaderProps {
   onComplete: () => void;
 }
 
 export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
-  const [phase, setPhase] = useState<'exposed' | 'cloaking' | 'secured'>('exposed');
+  const [phase, setPhase] = useState<'exposed' | 'cloaking' | 'secured' | 'expanding'>('exposed');
+  
+  // Motion value for the portal mask radius (0% to 150%)
+  const maskRadius = useMotionValue(0);
+  // Create the dynamic mask image string
+  const maskImage = useMotionTemplate`radial-gradient(circle at 50% 50%, transparent ${maskRadius}%, black ${maskRadius}%)`;
 
   useEffect(() => {
     // Timeline
     const timer1 = setTimeout(() => setPhase('cloaking'), 1500);
     const timer2 = setTimeout(() => setPhase('secured'), 3000);
-    const timer3 = setTimeout(() => onComplete(), 4000);
+    
+    // Start expansion after secured phase build-up
+    const timer3 = setTimeout(() => {
+      setPhase('expanding');
+      // Animate the mask opening
+      animate(maskRadius, 150, {
+        duration: 1.5,
+        ease: [0.645, 0.045, 0.355, 1.000], // cubic-bezier for smooth "portal" feel
+        onComplete: () => onComplete()
+      });
+    }, 4500);
 
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
       clearTimeout(timer3);
     };
-  }, [onComplete]);
+  }, [onComplete, maskRadius]);
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-background flex items-center justify-center overflow-hidden">
+    <motion.div 
+      className="fixed inset-0 z-[9999] bg-background flex items-center justify-center overflow-hidden"
+      style={{ 
+        // Apply the mask only during the expanding phase to reveal content behind
+        maskImage: phase === 'expanding' ? maskImage : 'none',
+        WebkitMaskImage: phase === 'expanding' ? maskImage : 'none'
+      }}
+    >
       
       {/* Background Ambience - Changes with phase */}
       <div className={`absolute inset-0 transition-colors duration-1000 ${
@@ -61,15 +83,15 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
             )}
           </AnimatePresence>
 
-          {/* PHASE 2 & 3: CLOAK LOGO (The Savior) */}
+          {/* PHASE 2, 3, 4: CLOAK LOGO (The Savior) */}
           <AnimatePresence>
-            {(phase === 'cloaking' || phase === 'secured') && (
+            {(phase === 'cloaking' || phase === 'secured' || phase === 'expanding') && (
               <motion.div
                 key="cloak"
                 initial={{ opacity: 0, scale: 1.5, y: 20 }}
                 animate={{ 
-                  opacity: 1, 
-                  scale: phase === 'secured' ? 1.2 : 1, 
+                  opacity: phase === 'expanding' ? 0 : 1, // Fade out logo as portal opens
+                  scale: phase === 'secured' ? 1.2 : phase === 'expanding' ? 3 : 1, // Scale up during expansion
                   y: 0,
                   filter: phase === 'secured' ? 'drop-shadow(0 0 20px rgba(255,255,255,0.5))' : 'none'
                 }}
@@ -78,18 +100,53 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
               >
                 <div className="w-32 h-32 text-foreground relative">
                    <CloakLogo />
+                   
                    {/* Shield Forming Animation */}
-                   <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
-                     <motion.circle 
-                        cx="50" cy="50" r="48" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        strokeWidth="1"
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        animate={{ pathLength: 1, opacity: 0.5 }}
-                        transition={{ duration: 1.5, ease: "easeInOut" }}
-                     />
-                   </svg>
+                   {phase === 'cloaking' && (
+                     <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
+                       <motion.circle 
+                          cx="50" cy="50" r="48" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          strokeWidth="1"
+                          initial={{ pathLength: 0, opacity: 0 }}
+                          animate={{ pathLength: 1, opacity: 0.5 }}
+                          transition={{ duration: 1.5, ease: "easeInOut" }}
+                       />
+                     </svg>
+                   )}
+
+                   {/* THE PORTAL NODE - Only visible in Secured/Expanding phase */}
+                   {(phase === 'secured' || phase === 'expanding') && (
+                     <motion.div
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full z-20 pointer-events-none"
+                        initial={{ width: 10, height: 10, opacity: 0 }}
+                        animate={
+                          phase === 'expanding' 
+                            ? { width: 2000, height: 2000, opacity: 0 } // Expand massively then vanish (mask takes over visual)
+                            : { width: 12, height: 12, opacity: 1 }
+                        }
+                        transition={
+                          phase === 'expanding' 
+                            ? { duration: 1.5, ease: [0.645, 0.045, 0.355, 1.000] }
+                            : { duration: 0.2 }
+                        }
+                     >
+                        {/* Pulsing Core Effect in Secured Phase */}
+                        {phase === 'secured' && (
+                          <motion.div 
+                            className="absolute inset-0 bg-white rounded-full"
+                            animate={{ scale: [1, 1.5, 1], opacity: [0.8, 0.2, 0.8] }}
+                            transition={{ duration: 0.2, repeat: Infinity }} // Fast pulse
+                          />
+                        )}
+                        
+                        {/* Glowing Ring during Expansion */}
+                        {phase === 'expanding' && (
+                          <div className="absolute inset-0 rounded-full border-[50px] border-white opacity-50 blur-xl" />
+                        )}
+                     </motion.div>
+                   )}
                 </div>
               </motion.div>
             )}
@@ -126,11 +183,11 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
               </motion.div>
             )}
 
-            {phase === 'secured' && (
+            {(phase === 'secured' || phase === 'expanding') && (
               <motion.div
                 key="text-secured"
                 initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
+                animate={{ opacity: phase === 'expanding' ? 0 : 1, y: 0 }}
                 className="text-primary font-mono tracking-widest"
               >
                 <span className="block text-sm mb-1 opacity-70">STATUS</span>
@@ -148,13 +205,14 @@ export const PrivacyLoader: React.FC<PrivacyLoaderProps> = ({ onComplete }) => {
              initial={{ width: "0%" }}
              animate={{ 
                width: phase === 'exposed' ? "30%" : phase === 'cloaking' ? "80%" : "100%",
-               backgroundColor: phase === 'exposed' ? "var(--destructive)" : "white"
+               backgroundColor: phase === 'exposed' ? "var(--destructive)" : "white",
+               opacity: phase === 'expanding' ? 0 : 1
              }}
              transition={{ duration: 1 }}
            />
         </div>
 
       </div>
-    </div>
+    </motion.div>
   );
 };
