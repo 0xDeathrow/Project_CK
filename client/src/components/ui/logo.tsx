@@ -14,70 +14,35 @@ export const CloakLogo: React.FC<LogoProps> = ({ className, color = "currentColo
       xmlns="http://www.w3.org/2000/svg" 
       className={cn("w-full h-full", className)}
     >
-      {/* Tech Hooded Figure */}
+      {/* Graphical Hooded Figure - Less Technical, More Iconic */}
       
-      {/* Hood Outline - Geometric/Tech style */}
+      {/* Outer Hood Shape - Smooth, graphical curve */}
       <path 
-        d="M50 5L20 35V85L50 95L80 85V35L50 5Z" 
+        d="M50 10C30 10 20 30 20 55C20 75 30 90 50 90C70 90 80 75 80 55C80 30 70 10 50 10Z" 
+        stroke={color} 
+        strokeWidth="6" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+      />
+
+      {/* Inner Cowl/Visor - Creating the face void */}
+      <path 
+        d="M50 28C42 28 35 35 35 50C35 62 42 68 50 68C58 68 65 62 65 50C65 35 58 28 50 28Z" 
         stroke={color} 
         strokeWidth="4" 
-        strokeLinecap="square" 
-        strokeLinejoin="miter"
-        className="opacity-100"
-      />
-
-      {/* Inner Cowl/Visor Opening */}
-      <path 
-        d="M50 20L70 40V70L50 80L30 70V40L50 20Z" 
-        fill="none"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="square" 
-        strokeLinejoin="miter"
-        className="opacity-60"
-      />
-
-      {/* Shoulders / Robe detail */}
-      <path 
-        d="M20 85L10 95" 
-        stroke={color} 
-        strokeWidth="3" 
-        strokeLinecap="square"
-      />
-      <path 
-        d="M80 85L90 95" 
-        stroke={color} 
-        strokeWidth="3" 
-        strokeLinecap="square"
-      />
-
-      {/* The "Eye" / Tech Core - Hidden inside */}
-      <circle 
-        cx="50" 
-        cy="50" 
-        r="4" 
-        fill={color} 
-        className="animate-pulse"
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+        className="opacity-90"
       />
       
-      {/* Circuit lines connecting to the eye */}
+      {/* Central 'Eye' / Focus Point - Solid and clear */}
+      <circle cx="50" cy="48" r="5" fill={color} />
+      
+      {/* Subtle Shadow Fill for depth without lines */}
       <path 
-        d="M50 50L50 65" 
-        stroke={color} 
-        strokeWidth="1.5" 
-        className="opacity-50"
-      />
-      <path 
-        d="M50 65L35 75" 
-        stroke={color} 
-        strokeWidth="1.5" 
-        className="opacity-50"
-      />
-      <path 
-        d="M50 65L65 75" 
-        stroke={color} 
-        strokeWidth="1.5" 
-        className="opacity-50"
+        d="M50 28C42 28 35 35 35 50C35 62 42 68 50 68C58 68 65 62 65 50C65 35 58 28 50 28Z" 
+        fill={color}
+        className="opacity-10"
       />
     </svg>
   );
