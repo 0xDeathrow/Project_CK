@@ -14,38 +14,36 @@ export const CloakLogo: React.FC<LogoProps> = ({ className, color = "currentColo
       xmlns="http://www.w3.org/2000/svg" 
       className={cn("w-full h-full", className)}
     >
-      {/* Hood/Cowl Outline */}
+      {/* Minimalist Hood Silhouette */}
+      {/* Left side of hood */}
       <path 
-        d="M50 5L20 40L25 85L50 95L75 85L80 40L50 5Z" 
+        d="M50 10C30 10 15 30 15 55V90H40L50 80" 
         stroke={color} 
-        strokeWidth="4" 
+        strokeWidth="6" 
         strokeLinecap="round" 
         strokeLinejoin="round"
-        className="opacity-90"
       />
       
-      {/* Inner Hood Detail - Creating the depth */}
+      {/* Right side of hood - slightly offset/disconnected for style */}
       <path 
-        d="M50 15C40 15 35 25 35 35C35 50 50 60 50 60C50 60 65 50 65 35C65 25 60 15 50 15Z" 
+        d="M50 10C70 10 85 30 85 55V90H60L50 80" 
         stroke={color} 
-        strokeWidth="3" 
+        strokeWidth="6" 
         strokeLinecap="round" 
         strokeLinejoin="round"
+      />
+
+      {/* Inner "Void" - Minimal Visor Line */}
+      <path 
+        d="M35 50H65" 
+        stroke={color} 
+        strokeWidth="6" 
+        strokeLinecap="round"
         className="opacity-80"
       />
       
-      {/* Triangular Node Connection (The "Secret" inside) */}
-      <g className="opacity-100">
-        {/* Nodes */}
-        <circle cx="50" cy="70" r="4" fill={color} />
-        <circle cx="40" cy="55" r="4" fill={color} />
-        <circle cx="60" cy="55" r="4" fill={color} />
-        
-        {/* Connections */}
-        <line x1="40" y1="55" x2="60" y2="55" stroke={color} strokeWidth="2" />
-        <line x1="40" y1="55" x2="50" y2="70" stroke={color} strokeWidth="2" />
-        <line x1="60" y1="55" x2="50" y2="70" stroke={color} strokeWidth="2" />
-      </g>
+      {/* Tech accent dot */}
+      <circle cx="50" cy="65" r="4" fill={color} className="opacity-60" />
     </svg>
   );
 };
