@@ -93,122 +93,78 @@ export const HomePage: React.FC = () => {
       {/* ---------------- PRIVACY GAP (COMPARISON) ---------------- */}
       <section className="relative py-32 px-6 z-10">
         <div className="max-w-7xl mx-auto">
-          <RevealOnScroll className="mb-16 text-center">
+          <RevealOnScroll className="mb-24 text-center">
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
               The Privacy Gap
             </h2>
             <p className="text-muted-foreground text-xl max-w-2xl mx-auto">
-              Why migrating to zero-knowledge infrastructure is no longer optional.
+              Two worlds. One choice.
             </p>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Traditional (The Problem) */}
-            <RevealOnScroll delay={0.1}>
-              <div className="h-full rounded-xl bg-black border border-destructive/20 p-1 overflow-hidden group relative">
-                {/* Animated Data Rain Background */}
-                <div className="absolute inset-0 opacity-20 overflow-hidden font-mono text-xs text-destructive leading-none pointer-events-none">
-                   <div className="animate-[slide-down_10s_linear_infinite] whitespace-pre-wrap">
-                    {Array.from({ length: 20 }).map((_, i) => (
-                      <div key={i} className="flex justify-between px-4">
-                         <span>0x{Math.random().toString(16).slice(2, 10)}...</span>
-                         <span>{Math.floor(Math.random() * 1000)} SOL</span>
+          <div className="relative">
+            {/* Central Divider Line */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent hidden lg:block" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-0">
+              
+              {/* LEFT SIDE: PUBLIC LEDGER */}
+              <div className="lg:pr-16 lg:text-right">
+                <RevealOnScroll>
+                  <div className="mb-8 flex flex-col lg:items-end items-center">
+                    <div className="p-4 rounded-full bg-destructive/10 text-destructive mb-4 inline-block">
+                      <Globe className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-3xl font-bold text-destructive mb-2 tracking-tight">PUBLIC LEDGER</h3>
+                    <p className="text-destructive/60 font-mono text-sm uppercase tracking-widest">Exposure Level: Critical</p>
+                  </div>
+
+                  <div className="space-y-12">
+                    {[
+                      { title: "Wallet Visibility", status: "EXPOSED", desc: "Your entire transaction history is permanently recorded for anyone to see." },
+                      { title: "Staking Pattern", status: "TRACEABLE", desc: "Validators and analytics firms build a profile of your economic behavior." },
+                      { title: "Asset Flow", status: "MONITORED", desc: "Every movement of funds is tracked, linked, and analyzed." }
+                    ].map((item, i) => (
+                      <div key={i} className="group relative">
+                        <div className="absolute top-0 right-0 lg:-right-16 w-3 h-3 rounded-full bg-destructive/30 mt-2 hidden lg:block group-hover:bg-destructive group-hover:scale-125 transition-all duration-300" />
+                        <h4 className="text-xl font-bold text-foreground mb-2 group-hover:text-destructive transition-colors">{item.title}</h4>
+                        <div className="inline-block px-2 py-1 rounded bg-destructive/10 text-destructive text-xs font-mono mb-2">{item.status}</div>
+                        <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
                       </div>
                     ))}
-                   </div>
-                </div>
-                
-                <div className="absolute inset-0 bg-gradient-to-br from-destructive/5 via-transparent to-transparent" />
-                
-                <div className="relative h-full bg-card/80 backdrop-blur-sm rounded-lg p-8 md:p-12 border border-white/5 transition-colors duration-300 flex flex-col">
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="relative p-3 rounded-lg bg-destructive/10 text-destructive overflow-hidden">
-                      <div className="absolute inset-0 bg-destructive/20 animate-ping opacity-50" />
-                      <Globe className="w-8 h-8 relative z-10" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-destructive tracking-tight">
-                      PUBLIC LEDGER
-                      <span className="ml-3 text-xs font-mono bg-destructive/20 px-2 py-1 rounded text-destructive uppercase animate-pulse">Exposed</span>
-                    </h3>
                   </div>
-                  
-                  <div className="space-y-6 flex-grow relative z-10">
-                    <div className="p-4 rounded bg-destructive/10 border border-destructive/20 relative overflow-hidden">
-                      {/* Glitch scanning line */}
-                      <div className="absolute top-0 left-0 w-full h-[2px] bg-destructive/50 shadow-[0_0_10px_red] animate-[scan-down_3s_linear_infinite]" />
-                      
-                      <p className="font-medium text-destructive-foreground font-mono">
-                        Warning: Wallet activity detected. <br/>
-                        <span className="font-bold">Identity Correlation: 98% Match</span>
-                      </p>
-                    </div>
-                    
-                    <ul className="space-y-4">
-                      {[
-                        "Delegation link: VISIBLE",
-                        "Staking amount: PUBLIC",
-                        "Transaction history: TRACEABLE",
-                        "Economic profile: COMPROMISED"
-                      ].map((item, i) => (
-                        <li key={i} className="flex gap-3 text-muted-foreground items-center group/item">
-                          <div className="w-1.5 h-1.5 rounded-full bg-destructive/50 group-hover/item:bg-destructive group-hover/item:scale-150 transition-all duration-300" />
-                          <span className="font-mono text-sm tracking-wide group-hover/item:text-destructive transition-colors">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+                </RevealOnScroll>
               </div>
-            </RevealOnScroll>
 
-            {/* ZK Staking (The Solution) */}
-            <RevealOnScroll delay={0.3}>
-              <div className="h-full rounded-xl bg-black border border-primary/20 p-1 overflow-hidden group relative shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:shadow-[0_0_50px_rgba(255,255,255,0.1)] transition-shadow duration-500">
-                {/* Void Animation Background */}
-                <div className="absolute inset-0 opacity-30">
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/20 rounded-full blur-[80px] animate-pulse" />
-                </div>
-
-                <div className="relative h-full bg-card/80 backdrop-blur-sm rounded-lg p-8 md:p-12 border border-white/5 flex flex-col">
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="p-3 rounded-lg bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+              {/* RIGHT SIDE: ZERO KNOWLEDGE */}
+              <div className="lg:pl-16">
+                <RevealOnScroll delay={0.2}>
+                  <div className="mb-8 flex flex-col lg:items-start items-center">
+                    <div className="p-4 rounded-full bg-primary/10 text-primary mb-4 inline-block shadow-[0_0_20px_rgba(255,255,255,0.1)]">
                       <Shield className="w-8 h-8" />
                     </div>
-                    <h3 className="text-2xl font-bold text-primary tracking-tight">
-                      ZERO KNOWLEDGE
-                      <span className="ml-3 text-xs font-mono bg-primary/20 px-2 py-1 rounded text-primary uppercase">Secure</span>
-                    </h3>
+                    <h3 className="text-3xl font-bold text-white mb-2 tracking-tight">ZERO KNOWLEDGE</h3>
+                    <p className="text-primary font-mono text-sm uppercase tracking-widest">Security Level: Maximum</p>
                   </div>
 
-                  <div className="space-y-6 flex-grow">
-                    <div className="p-4 rounded bg-primary/5 border border-primary/10 relative overflow-hidden group-hover:bg-primary/10 transition-colors duration-500">
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite]" />
-                      <p className="font-medium text-primary-foreground font-mono">
-                        Status: Encrypted <br/>
-                        <span className="font-bold">Proof Generated. Data Hidden.</span>
-                      </p>
-                    </div>
-
-                    <ul className="space-y-4">
-                      {[
-                        "Wallet Link: SEVERED",
-                        "Staking Amount: PRIVATE",
-                        "Validator View: PROOF ONLY",
-                        "Footprint: ZERO"
-                      ].map((item, i) => (
-                        <li key={i} className="flex gap-3 text-muted-foreground items-center group/item">
-                          <div className="w-1.5 h-1.5 rounded-full bg-primary mt-0.5 shadow-[0_0_8px_rgba(255,255,255,0.8)] group-hover/item:scale-150 transition-all duration-300" />
-                          <span className="font-mono text-sm tracking-wide text-foreground/80 group-hover/item:text-white transition-colors">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="space-y-12">
+                    {[
+                      { title: "Cryptographic Shield", status: "SECURE", desc: "Mathematical proofs verify your stake without ever revealing your wallet address." },
+                      { title: "Untraceable Actions", status: "PRIVATE", desc: "Break the link between your identity and your on-chain activity completely." },
+                      { title: "Invisible Assets", status: "HIDDEN", desc: "Your funds remain yours, but their existence and movement are visible only to you." }
+                    ].map((item, i) => (
+                      <div key={i} className="group relative">
+                         <div className="absolute top-0 left-0 lg:-left-16 w-3 h-3 rounded-full bg-primary/50 mt-2 hidden lg:block shadow-[0_0_10px_rgba(255,255,255,0.5)] group-hover:scale-125 transition-all duration-300" />
+                        <h4 className="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">{item.title}</h4>
+                        <div className="inline-block px-2 py-1 rounded bg-primary/10 text-primary text-xs font-mono mb-2">{item.status}</div>
+                        <p className="text-foreground/80 leading-relaxed text-lg">{item.desc}</p>
+                      </div>
+                    ))}
                   </div>
-                  
-                  {/* Scanning line effect at bottom */}
-                  <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
-                </div>
+                </RevealOnScroll>
               </div>
-            </RevealOnScroll>
+
+            </div>
           </div>
         </div>
       </section>
