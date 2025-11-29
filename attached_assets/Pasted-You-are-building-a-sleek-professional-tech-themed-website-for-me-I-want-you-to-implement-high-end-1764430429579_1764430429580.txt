@@ -1,0 +1,95 @@
+You are building a sleek, professional, tech-themed website for me. I want you to implement high-end, scroll-driven animations inspired by the style and feel of the animations on https://www.arcium.com/
+.
+
+Animation Style & Goals
+
+Make the site feel premium, modern, and tech-focused.
+
+Animations should be smooth, subtle, and purposeful, not flashy or gimmicky.
+
+Use the entire screen, not just text boxes – sections, backgrounds, and layout elements should all participate.
+
+The motion should support storytelling and flow as the user scrolls.
+
+Scroll-Based Behavior
+
+Focus on scroll-linked animations, not just on-load effects.
+
+As the user scrolls down the page:
+
+Sections should fade/slide in with depth, possibly using light parallax so different layers move at slightly different speeds.
+
+Key visuals (cards, diagrams, feature blocks) should animate in sequence as they enter the viewport.
+
+Backgrounds can shift, move, or morph slightly to create a dynamic, immersive feel.
+
+Use scroll-driven transitions between sections so the page feels continuous and well-crafted.
+
+Elements to Animate (Beyond Text)
+
+Hero section (above the fold):
+
+Full-screen animations that feel techy: e.g. abstract shapes, grids, soft glows, flowing lines, or data-like patterns.
+
+The heading and CTA can animate in, but the hero background and layout should also subtly animate or respond to scroll.
+
+Content sections:
+
+Animate cards, images, icons, and feature blocks, not just text.
+
+Use staggered reveals so elements appear one after another as the user scrolls.
+
+Add section transitions (e.g., smooth wipes, masked reveals, or panels sliding over each other).
+
+Global micro-interactions:
+
+Hover effects on buttons and links (slight scale, underline animations, glows).
+
+Icons that animate gently on hover or when they come into view.
+
+Visual Direction / Tech Theme
+
+Aesthetic: modern SaaS / deep-tech.
+
+Clean typography, dark or neutral backgrounds with subtle gradients.
+
+Abstract shapes, grids, or data-like visuals to reinforce the tech theme.
+
+Keep motion consistent:
+
+Use similar easing, durations, and directions for animations across the site so it feels unified.
+
+Performance & UX
+
+Animations must be:
+
+Smooth and performant on modern desktop and mobile browsers.
+
+Non-intrusive – content should always remain readable.
+
+Responsive – adjust or simplify animations on mobile, but keep them polished.
+
+Avoid overloading the page; prioritize quality over quantity of effects.
+
+Implementation Notes
+
+Use scroll-based animation techniques (similar to GSAP ScrollTrigger or equivalent) to:
+
+Link animation timelines to scroll position.
+
+Stagger element entrances.
+
+Control section transitions and background motion.
+
+Build a cohesive animation system that applies to:
+
+Hero
+
+Feature sections
+
+About/Story sections
+
+Any call-to-action or pricing/summary sections
+
+Final objective:
+The finished website should feel sleek, professional, and unique, with scroll-driven, full-screen animations (similar in spirit to arcium.com) that maintain a strong tech theme and make the site look carefully crafted and well made.
